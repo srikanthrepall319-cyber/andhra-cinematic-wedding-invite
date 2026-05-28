@@ -43,17 +43,17 @@ export function HeroSection() {
             </p>
 
             {/* Couple Names */}
-            <h1 className="font-serif text-5xl font-semibold leading-tight drop-shadow-[0_0_25px_rgba(212,175,55,0.18)] md:text-8xl">
+            <h1 className="font-serif text-5xl font-medium leading-tight tracking-wide md:text-8xl">
 
-              <span className="bg-gradient-to-r from-white via-[#f8e7b5] to-[#D4AF37] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-b from-[#fff6d6] via-[#f4d27a] to-[#c9971e] bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(212,175,55,0.25)]">
                 {siteData.coupleFull.groom}
               </span>
 
-              <span className="block text-2xl font-normal text-gold md:text-4xl">
+              <span className="block py-2 text-2xl font-light text-[#e7c46a] md:text-4xl">
                 &
               </span>
 
-              <span className="bg-gradient-to-r from-[#D4AF37] via-[#f8e7b5] to-white bg-clip-text text-transparent">
+              <span className="bg-gradient-to-b from-[#fff6d6] via-[#f4d27a] to-[#c9971e] bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(212,175,55,0.25)]">
                 {siteData.coupleFull.bride}
               </span>
 
@@ -71,7 +71,7 @@ export function HeroSection() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white/50 text-white hover:bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45"
+                  className="border-white/50 text-white hover:bg-gradient-to-br hover:from-black/60 hover:via-[#3b0f19]/55 hover:to-[#5c2b2b]/45"
                 >
                   View Events
                 </Button>
@@ -83,7 +83,7 @@ export function HeroSection() {
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
 
               {/* Wedding Date */}
-              <div className="glass-card rounded-3xl border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-4 text-left text-white">
+              <div className="glass-card rounded-3xl border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-4 text-left text-white backdrop-blur-md">
 
                 <p className="text-xs uppercase tracking-[0.25em] text-gold">
                   Wedding Muhurtham
@@ -100,7 +100,7 @@ export function HeroSection() {
               </div>
 
               {/* Countdown */}
-              <div className="glass-card rounded-3xl border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-4 text-left text-white">
+              <div className="glass-card rounded-3xl border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-4 text-left text-white backdrop-blur-md">
 
                 <p className="text-xs uppercase tracking-[0.25em] text-gold">
                   Live Countdown
@@ -116,7 +116,7 @@ export function HeroSection() {
             </div>
 
             {/* Bottom Tagline */}
-            <div className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 px-4 py-2 text-sm text-white/85">
+            <div className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 px-4 py-2 text-sm text-white/85 backdrop-blur-md">
 
               <span className="diya-glow inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
 
@@ -138,7 +138,7 @@ export function HeroSection() {
             <div className="absolute -inset-4 rounded-[2rem] bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.35),_transparent_70%)] blur-2xl" />
 
             {/* Main Card */}
-            <div className="glass-card relative overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-6 text-white">
+            <div className="glass-card relative overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-6 text-white backdrop-blur-xl">
 
               <div className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(160deg,rgba(110,31,45,0.9),rgba(62,15,27,0.9),rgba(212,175,55,0.32))] p-8">
 
@@ -149,7 +149,7 @@ export function HeroSection() {
                       Wedding Invitation
                     </p>
 
-                    <p className="mt-2 font-serif text-3xl">
+                    <p className="mt-2 font-serif text-3xl text-[#f4d27a]">
                       {siteData.initials}
                     </p>
                   </div>
@@ -157,7 +157,7 @@ export function HeroSection() {
                 </div>
 
                 {/* Message */}
-                <div className="mt-10 rounded-[1.25rem] border border-white/10 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-5">
+                <div className="mt-10 rounded-[1.25rem] border border-white/10 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 p-5 backdrop-blur-md">
 
                   <p className="text-sm leading-7 text-white/85">
                     Celebrating Love, Tradition & Family.
