@@ -3,28 +3,31 @@
 import { useMemo } from "react";
 
 export function FloatingPetals() {
-  const petals = useMemo(
+  const particles = useMemo(
     () =>
-      Array.from({ length: 16 }, (_, i) => ({
-        left: `${(i * 6.5) % 100}%`,
-        delay: `${(i % 8) * 1.3}s`,
-        duration: `${11 + (i % 5)}s`,
-        scale: 0.7 + (i % 3) * 0.2
+      Array.from({ length: 35 }, (_, i) => ({
+        left: `${Math.random() * 100}%`,
+        delay: `${Math.random() * 5}s`,
+        duration: `${4 + Math.random() * 4}s`,
+        size: `${4 + Math.random() * 8}px`,
+        opacity: 0.3 + Math.random() * 0.7
       })),
     []
   );
 
   return (
-    <div className="petals-container fixed inset-0 z-0">
-      {petals.map((petal, index) => (
+    <div className="pointer-events-none fixed inset-0 z-[5] overflow-hidden">
+      {particles.map((particle, index) => (
         <span
           key={index}
-          className="petal"
+          className="gold-particle"
           style={{
-            left: petal.left,
-            animationDelay: petal.delay,
-            animationDuration: petal.duration,
-            transform: `scale(${petal.scale})`
+            left: particle.left,
+            width: particle.size,
+            height: particle.size,
+            opacity: particle.opacity,
+            animationDelay: particle.delay,
+            animationDuration: particle.duration
           }}
         />
       ))}

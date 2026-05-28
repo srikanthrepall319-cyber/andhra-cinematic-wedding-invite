@@ -37,21 +37,48 @@ body {
   background: linear-gradient(90deg, transparent, rgba(212,175,55,0.8), transparent);
 }
 
-.petals-container {
-  pointer-events: none;
-  overflow: hidden;
+/* Floating Petals */
+
+/* Golden Floating Particles */
+
+.gold-particle {
+  position: absolute;
+  top: -20px;
+
+  border-radius: 9999px;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 220, 120, 1) 0%,
+    rgba(212, 175, 55, 0.8) 40%,
+    rgba(212, 175, 55, 0) 75%
+  );
+
+  box-shadow:
+    0 0 10px rgba(212,175,55,0.7),
+    0 0 20px rgba(212,175,55,0.35);
+
+  animation: fall linear infinite;
 }
 
-.petal {
-  position: absolute;
-  top: 110%;
-  width: 14px;
-  height: 20px;
-  border-radius: 60% 40% 60% 40%;
-  background: linear-gradient(180deg, rgba(247,216,214,0.95), rgba(212,175,55,0.55));
-  filter: blur(0.2px);
-  opacity: 0;
-  animation: drift linear infinite;
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(50vh) translateX(20px);
+  }
+
+  100% {
+    transform: translateY(120vh) translateX(-20px);
+    opacity: 0;
+  }
 }
 
 .diya-glow {

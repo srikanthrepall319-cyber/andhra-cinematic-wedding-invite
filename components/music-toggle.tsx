@@ -1,44 +1,58 @@
 "use client";
 
-import { Button } from "@/components/ui";
-import { useEffect, useRef, useState } from "react";
-import { Music, Volume2, VolumeX } from "lucide-react";
-import { useLanguage } from "@/components/language-context";
-import { copy } from "@/lib/i18n";
+import { useRef, useState } from "react";
+
+import {
+  Volume2,
+  VolumeX
+} from "lucide-react";
 
 export function MusicToggle() {
-  const [muted, setMuted] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const { language } = useLanguage();
-  const t = copy[language];
 
-  useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.muted = muted;
-  }, [muted]);
+  const [playing, setPlaying] = useState(false);
 
-  const toggle = async () => {
-    setMuted((m) => !m);
-    const audio = audioRef.current;
-    if (!audio) return;
+  const toggleMusic = async () => {
     try {
-      if (audio.paused) {
-        await audio.play();
+      if (!audioRef.current) return;
+
+      if (playing) {
+        audioRef.current.pause();
+
+        setPlaying(false);
       } else {
-        audio.pause();
+        await audioRef.current.play();
+
+        setPlaying(true);
       }
-    } catch {
-      // No hard failure if the browser blocks autoplay.
+    } catch (error) {
+      console.error("Music error:", error);
     }
   };
 
   return (
     <>
-      <audio ref={audioRef} loop preload="none" src="/music/wedding-instrumental.mp3" />
-      <Button onClick={toggle} variant="ghost" size="sm" className="rounded-full border border-white/40 bg-white/50">
-        {muted ? <VolumeX className="mr-2 h-4 w-4" /> : <Volume2 className="mr-2 h-4 w-4" />}
-        {t.music}
-      </Button>
+      <audio
+        ref={audioRef}
+        loop
+        preload="auto"
+      >
+        <source
+          src="/music/wedding-song.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+
+      <button
+        onClick={toggleMusic}
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white backdrop-blur-md transition hover:bg-white/10"
+      >
+        {playing ? (
+          <Volume2 className="h-4 w-4" />
+        ) : (
+          <VolumeX className="h-4 w-4" />
+        )}
+      </button>
     </>
   );
 }

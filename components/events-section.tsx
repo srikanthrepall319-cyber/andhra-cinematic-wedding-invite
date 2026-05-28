@@ -22,7 +22,7 @@ export function EventsSection() {
   if (!mounted) return null;
   const downloadIcs = (icsContent: string) => {
     const blob = new Blob([icsContent], {
-    type: "text/calendar;charset=utf-8"
+      type: "text/calendar;charset=utf-8",
     });
 
     const url = window.URL.createObjectURL(blob);
@@ -40,28 +40,39 @@ export function EventsSection() {
   };
 
   return (
-    <section
-      id="events"
-      className="mx-auto max-w-7xl px-4 py-20 md:px-6"
-    >
+    <section id="events" className="mx-auto max-w-7xl px-4 py-20 md:px-6">
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
         {siteData.events.map((event, index) => {
           const handleCalendar = () => {
-            const start = new Date(
-              `${event.date}T${event.key === "wedding" ? "09:00:00" : "19:00:00"}+05:30`
-            );
+            const parseTime = (time: string) => {
+              const [rawHourMinute, modifier] = time.split(" ");
+              let [hours, minutes] = rawHourMinute.split(":").map(Number);
 
-            const end = new Date(
-              start.getTime() +
-                (event.key === "wedding" ? 3 : 2) * 60 * 60 * 1000
-            );
+              if (modifier === "PM" && hours !== 12) {
+                hours += 12;
+              }
+
+              if (modifier === "AM" && hours === 12) {
+                hours = 0;
+              }
+
+              return { hours, minutes };
+            };
+
+            const { hours, minutes } = parseTime(event.time);
+
+            const start = new Date(event.date);
+
+            start.setHours(hours, minutes, 0);
+
+            const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
 
             const ics = generateIcs({
               title: event.title,
               location: event.venue,
               description: event.description,
               start,
-              end
+              end,
             });
 
             downloadIcs(ics);
@@ -75,16 +86,18 @@ export function EventsSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full border-gold/20">
+              <Card className="glass-card h-full border border-white/10 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 text-white shadow-2xl">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-maroon/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-maroon">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-maroon/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-gold">
                       <CalendarDays className="h-3.5 w-3.5" />
                       {event.title}
                     </div>
-                    <h3 className="mt-4 font-serif text-3xl text-maroon">{event.title}</h3>
+                    <h3 className="mt-4 font-serif text-3xl text-gold">
+                      {event.title}
+                    </h3>
                   </div>
-                  <div className="rounded-2xl bg-gold/15 p-3 text-maroon">
+                  <div className="rounded-2xl bg-gold/15 p-3 text-gold">
                     <CalendarPlus className="h-5 w-5" />
                   </div>
                 </div>
@@ -102,15 +115,17 @@ export function EventsSection() {
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a href={toGoogleMapsUrl(event.mapsQuery)} target="_blank" rel="noreferrer">
+                  <a
+                    href={toGoogleMapsUrl(event.mapsQuery)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <Button variant="outline">
                       <MapPinned className="mr-2 h-4 w-4" />
                       Google Maps
                     </Button>
                   </a>
-                  <Button
-                    onClick={handleCalendar}
-                  >
+                  <Button onClick={handleCalendar}>
                     <CalendarPlus className="mr-2 h-4 w-4" />
                     Add to Calendar
                   </Button>

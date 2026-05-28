@@ -32,12 +32,12 @@ export function TraditionsSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full border-gold/20">
+              <Card className="glass-card h-full border border-white/10 bg-gradient-to-br from-black/60 via-[#3b0f19]/55 to-[#5c2b2b]/45 text-white shadow-2xl">
                 <div className="flex items-center gap-3">
-                  <div className="rounded-2xl bg-maroon/10 p-3 text-maroon">
+                  <div className="rounded-2xl bg-maroon/10 p-3 text-gold">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-serif text-2xl text-maroon">{item.title}</h3>
+                  <h3 className="font-serif text-2xl text-gold">{item.title}</h3>
                 </div>
                 <p className="mt-4 text-sm leading-7 text-ink/80">{text}</p>
               </Card>

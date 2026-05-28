@@ -1,5 +1,5 @@
 export const siteData = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://your-vercel-domain.vercel.app",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://devi-pavan-wedding-invitation.vercel.app/",
   coupleShort: "Devi & Pavan",
   coupleFull: {
     groom: "Devi",
@@ -33,7 +33,7 @@ export const siteData = {
       title: "Wedding Ceremony",
       date: "2026-06-27",
       time: "08:43 PM",
-      venue: "At our Home, Kothapeta, Avanigadda, Andhra Pradesh",
+      venue: "Kothapeta, Avanigadda, Andhra Pradesh",
       mapsQuery: "https://maps.app.goo.gl/mkT5Mgm8UU44KKYm9",
       description:
         "The sacred wedding ritual where the couple begins a blessed new life together."
@@ -43,8 +43,8 @@ export const siteData = {
       title: "Reception",
       date: "2026-06-29",
       time: "10:00 AM",
-      venue: "Sri Lakshmi Narayana Function Hall, Andhra Pradesh",
-      mapsQuery: "https://maps.app.goo.gl/mkT5Mgm8UU44KKYm9",
+      venue: "Pedakonduru, Guntur, Andhra Pradesh",
+      mapsQuery: "https://maps.app.goo.gl/kvcsWYL9ojoe39e2A",
       description:
         "An morning of celebration, warm wishes, photographs, and happy hearts."
     }
