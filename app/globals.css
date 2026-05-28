@@ -4,87 +4,122 @@
 
 :root {
   color-scheme: light;
+  --gold: #c9a84c;
+  --gold-light: #f0d080;
+  --maroon: #6e1f2d;
+  --maroon-deep: #3e0d18;
+  --ivory: #fdf8f0;
+  --ink: #1c1010;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+html,
 body {
-  @apply bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.95),_rgba(244,233,214,0.98),_rgba(239,225,201,1))] text-ink antialiased;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: rgba(212,175,55,0.35);
+  background: rgba(201, 168, 76, 0.28);
 }
 
-.premium-gradient {
-  background: linear-gradient(120deg, rgba(110,31,45,0.95), rgba(212,175,55,0.82), rgba(255,249,239,0.98));
-  background-size: 200% 200%;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: #f5ede0; }
+::-webkit-scrollbar-thumb  { background: rgba(201,168,76,.3); border-radius: 99px; }
 
+/* ── Glass card (light sections) ── */
 .glass-card {
-  @apply border border-white/40 bg-white/55 backdrop-blur-xl shadow-soft;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-.hero-overlay {
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,0.42), rgba(255,255,255,0.08) 32%, rgba(110,31,45,0.42) 100%),
-    linear-gradient(to bottom, rgba(12, 7, 10, 0.32), rgba(12, 7, 10, 0.62));
+/* ── Dark card (events / traditions / contact) ── */
+.dark-card {
+  background: linear-gradient(
+    135deg,
+    rgba(50, 10, 20, 0.95) 0%,
+    rgba(70, 18, 30, 0.92) 55%,
+    rgba(201, 168, 76, 0.10) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
-.cinematic-line {
-  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.8), transparent);
-}
-
-/* Floating Petals */
-
-/* Golden Floating Particles */
-
+/* ── Floating gold particles ── */
 .gold-particle {
   position: absolute;
   top: -20px;
-
   border-radius: 9999px;
-
   background: radial-gradient(
     circle,
     rgba(255, 220, 120, 1) 0%,
-    rgba(212, 175, 55, 0.8) 40%,
-    rgba(212, 175, 55, 0) 75%
+    rgba(201, 168, 76, 0.75) 42%,
+    transparent 75%
   );
-
-  box-shadow:
-    0 0 10px rgba(212,175,55,0.7),
-    0 0 20px rgba(212,175,55,0.35);
-
+  box-shadow: 0 0 8px rgba(201,168,76,.55), 0 0 18px rgba(201,168,76,.2);
   animation: fall linear infinite;
 }
 
 @keyframes fall {
-  0% {
-    transform: translateY(-10vh) translateX(0);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  50% {
-    transform: translateY(50vh) translateX(20px);
-  }
-
-  100% {
-    transform: translateY(120vh) translateX(-20px);
-    opacity: 0;
-  }
+  0%   { transform: translateY(-10vh) translateX(0)    rotate(0deg);   opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translateY(50vh)  translateX(22px) rotate(180deg); }
+  100% { transform: translateY(120vh) translateX(-18px) rotate(360deg); opacity: 0; }
 }
 
+/* ── Diya / logo glow ── */
 .diya-glow {
-  box-shadow: 0 0 35px rgba(245, 196, 66, 0.35), 0 0 80px rgba(245, 196, 66, 0.14);
+  box-shadow: 0 0 26px rgba(201,168,76,.42), 0 0 60px rgba(201,168,76,.14);
 }
 
-html, body {
-  overflow-x: hidden;
+/* ── Shimmer text ── */
+.shimmer-text {
+  background: linear-gradient(90deg, #c9a84c 0%, #f0d080 38%, #c9a84c 58%, #f0d080 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Ornamental inline divider ── */
+.ornament::before,
+.ornament::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 36px;
+  height: 1px;
+  margin: 0 10px;
+}
+.ornament::before { background: linear-gradient(90deg, transparent, rgba(201,168,76,.65)); }
+.ornament::after  { background: linear-gradient(90deg, rgba(201,168,76,.65), transparent); }
+
+/* ── Subtle film-grain overlay on hero ── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
 }

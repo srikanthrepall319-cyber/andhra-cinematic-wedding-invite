@@ -7,28 +7,27 @@ export function Button({
   size = "md",
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
-  className?: string;
   variant?: "default" | "ghost" | "outline";
   size?: "sm" | "md" | "lg";
 }) {
-  const sizeClass =
-    size === "sm"
-      ? "h-9 px-4 text-sm"
-      : size === "lg"
-        ? "h-12 px-6 text-base"
-        : "h-10 px-5 text-sm";
-  const variantClass =
-    variant === "ghost"
-      ? "bg-white/55 text-ink hover:bg-white/80"
-      : variant === "outline"
-        ? "border border-gold/60 bg-transparent text-maroon hover:bg-gold/10"
-        : "bg-maroon text-white hover:bg-maroon/90";
+  const sizes: Record<string, string> = {
+    sm: "h-9  px-4  text-xs",
+    md: "h-10 px-5  text-sm",
+    lg: "h-11 px-7  text-sm",
+  };
+  const variants: Record<string, string> = {
+    default: "bg-maroon text-white hover:bg-maroon/85 shadow-sm",
+    ghost:   "bg-white/10 text-white hover:bg-white/20",
+    outline: "border border-gold/40 bg-transparent text-gold hover:bg-gold/10",
+  };
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-full font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-        sizeClass,
-        variantClass,
+        "inline-flex items-center justify-center rounded-full font-medium tracking-wide transition-all duration-200",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2",
+        "disabled:pointer-events-none disabled:opacity-50",
+        sizes[size],
+        variants[variant],
         className
       )}
       {...props}
@@ -39,6 +38,14 @@ export function Button({
 export function Card({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { className?: string }) {
-  return <div className={cn("rounded-3xl border border-white/40 bg-white/65 p-6 shadow-soft backdrop-blur-xl", className)} {...props} />;
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        "rounded-3xl border border-white/40 bg-white/60 p-6 shadow-card backdrop-blur-xl",
+        className
+      )}
+      {...props}
+    />
+  );
 }

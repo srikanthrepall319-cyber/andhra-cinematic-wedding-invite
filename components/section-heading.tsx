@@ -4,20 +4,40 @@ export function SectionHeading({
   eyebrow,
   title,
   description,
-  className
+  light = false,
+  className,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
+  light?: boolean;
   className?: string;
 }) {
   return (
-    <div className={cn("mx-auto max-w-3xl text-center", className)}>
-      {eyebrow ? (
-        <p className="mb-3 text-xs uppercase tracking-[0.35em] text-gold">{eyebrow}</p>
-      ) : null}
-      <h2 className="font-serif text-3xl font-semibold text-maroon md:text-5xl">{title}</h2>
-      {description ? <p className="mt-4 text-sm leading-7 text-ink/75 md:text-base">{description}</p> : null}
+    <div className={cn("mx-auto max-w-2xl text-center", className)}>
+      {eyebrow && (
+        <p className="ornament mb-4 text-[10px] uppercase tracking-[0.42em] text-gold">
+          {eyebrow}
+        </p>
+      )}
+      <h2
+        className={cn(
+          "font-serif text-[clamp(1.9rem,4vw,3rem)] font-light leading-tight",
+          light ? "text-white" : "text-maroon"
+        )}
+      >
+        {title}
+      </h2>
+      {description && (
+        <p
+          className={cn(
+            "mx-auto mt-4 max-w-xl text-[15px] leading-7",
+            light ? "text-white/60" : "text-ink/60"
+          )}
+        >
+          {description}
+        </p>
+      )}
     </div>
   );
 }

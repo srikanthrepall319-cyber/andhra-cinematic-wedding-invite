@@ -2,32 +2,38 @@
 
 import { useMemo } from "react";
 
+// Seeded pseudo-random so SSR and client produce identical values → no hydration mismatch
+function seededRand(seed: number) {
+  const x = Math.sin(seed + 1) * 10_000;
+  return x - Math.floor(x);
+}
+
 export function FloatingPetals() {
   const particles = useMemo(
     () =>
-      Array.from({ length: 35 }, (_, i) => ({
-        left: `${Math.random() * 100}%`,
-        delay: `${Math.random() * 5}s`,
-        duration: `${4 + Math.random() * 4}s`,
-        size: `${4 + Math.random() * 8}px`,
-        opacity: 0.3 + Math.random() * 0.7
+      Array.from({ length: 30 }, (_, i) => ({
+        left:     `${seededRand(i * 3 + 0) * 100}%`,
+        delay:    `${seededRand(i * 3 + 1) * 6}s`,
+        duration: `${5 + seededRand(i * 3 + 2) * 6}s`,
+        size:     `${4 + seededRand(i * 3 + 0) * 7}px`,
+        opacity:  0.25 + seededRand(i * 3 + 1) * 0.65,
       })),
     []
   );
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[5] overflow-hidden">
-      {particles.map((particle, index) => (
+      {particles.map((p, i) => (
         <span
-          key={index}
+          key={i}
           className="gold-particle"
           style={{
-            left: particle.left,
-            width: particle.size,
-            height: particle.size,
-            opacity: particle.opacity,
-            animationDelay: particle.delay,
-            animationDuration: particle.duration
+            left:              p.left,
+            width:             p.size,
+            height:            p.size,
+            opacity:           p.opacity,
+            animationDelay:    p.delay,
+            animationDuration: p.duration,
           }}
         />
       ))}

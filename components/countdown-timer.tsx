@@ -2,19 +2,32 @@
 
 import { useEffect, useState } from "react";
 
-function getTimeLeft(targetDate: Date) {
-  const now = new Date().getTime();
-  const diff = Math.max(targetDate.getTime() - now, 0);
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-  return { days, hours, minutes, seconds };
+function getTimeLeft(target: Date) {
+  const diff = Math.max(target.getTime() - Date.now(), 0);
+  return {
+    days:    Math.floor(diff / 86_400_000),
+    hours:   Math.floor((diff / 3_600_000) % 24),
+    minutes: Math.floor((diff / 60_000)    % 60),
+    seconds: Math.floor((diff / 1_000)     % 60),
+  };
+}
+
+function Digit({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/10 px-3 py-2 text-center">
+      <span className="font-serif text-2xl leading-none text-white">
+        {String(value).padStart(2, "0")}
+      </span>
+      <span className="mt-1 text-[9px] uppercase tracking-[0.28em] text-white/55">
+        {label}
+      </span>
+    </div>
+  );
 }
 
 export function CountdownTimer({
   targetDate,
-  compact = false
+  compact = false,
 }: {
   targetDate: Date;
   compact?: boolean;
@@ -22,36 +35,32 @@ export function CountdownTimer({
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(targetDate));
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      setTimeLeft(getTimeLeft(targetDate));
-    }, 1000);
-    return () => window.clearInterval(timer);
+    const id = window.setInterval(
+      () => setTimeLeft(getTimeLeft(targetDate)),
+      1_000
+    );
+    return () => window.clearInterval(id);
   }, [targetDate]);
 
-  const item = (label: string, value: number) => (
-    <div className="rounded-2xl bg-white/12 px-3 py-2 text-center">
-      <div className="font-serif text-2xl">{String(value).padStart(2, "0")}</div>
-      <div className="text-[10px] uppercase tracking-[0.25em] text-white/70">{label}</div>
-    </div>
-  );
-
-  if (compact) {
-    return (
-      <div className="mt-2 flex gap-2 text-white">
-        {item("Days", timeLeft.days)}
-        {item("Hrs", timeLeft.hours)}
-        {item("Min", timeLeft.minutes)}
-        {item("Sec", timeLeft.seconds)}
-      </div>
-    );
-  }
+  const entries = compact
+    ? [
+        { label: "Days",  value: timeLeft.days    },
+        { label: "Hrs",   value: timeLeft.hours   },
+        { label: "Min",   value: timeLeft.minutes },
+        { label: "Sec",   value: timeLeft.seconds },
+      ]
+    : [
+        { label: "Days",    value: timeLeft.days    },
+        { label: "Hours",   value: timeLeft.hours   },
+        { label: "Minutes", value: timeLeft.minutes },
+        { label: "Seconds", value: timeLeft.seconds },
+      ];
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {item("Days", timeLeft.days)}
-      {item("Hours", timeLeft.hours)}
-      {item("Minutes", timeLeft.minutes)}
-      {item("Seconds", timeLeft.seconds)}
+    <div className={compact ? "flex gap-2" : "grid grid-cols-2 gap-3 sm:grid-cols-4"}>
+      {entries.map((e) => (
+        <Digit key={e.label} label={e.label} value={e.value} />
+      ))}
     </div>
   );
 }

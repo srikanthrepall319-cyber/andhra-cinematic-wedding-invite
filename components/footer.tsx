@@ -3,17 +3,21 @@ import { siteData } from "@/lib/site-data";
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/30 bg-white/35 backdrop-blur-xl">
+    <footer className="relative z-10 mt-8 border-t border-black/8 bg-white/40 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-center md:flex-row md:px-6 md:text-left">
         <div>
-          <p className="font-serif text-2xl text-gold">{siteData.initials}</p>
-          <p className="mt-1 text-sm text-ink/70">Thank you for being part of our story.</p>
+          <p className="font-serif text-xl font-light text-maroon">
+            {siteData.initials}
+          </p>
+          <p className="mt-1 text-[13px] text-ink/45">
+            Thank you for being part of our story.
+          </p>
         </div>
-        <div className="flex items-center gap-4 text-sm text-ink/70">
-          <Link href="/events">Events</Link>
-          <Link href="/traditions">Traditions</Link>
-          <Link href="/contact">Contact</Link>
-        </div>
+        <nav className="flex items-center gap-5 text-[13px] text-ink/50">
+          <Link href="/events"     className="hover:text-maroon transition-colors">Events</Link>
+          <Link href="/traditions" className="hover:text-maroon transition-colors">Traditions</Link>
+          <Link href="/contact"    className="hover:text-maroon transition-colors">Contact</Link>
+        </nav>
       </div>
     </footer>
   );
